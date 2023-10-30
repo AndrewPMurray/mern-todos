@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 
 const { environment, port, mongodbURI } = require('./config');
+const routes = require('./routes');
 const isProduction = environment === 'production';
 
 const app = express();
@@ -35,6 +36,8 @@ app.use(
 		},
 	})
 );
+
+app.use(routes);
 
 // Catch unhandled requests for error handling
 app.use((_req, _res, next) => {
