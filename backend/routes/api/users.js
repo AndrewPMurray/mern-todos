@@ -15,7 +15,7 @@ const validateSignup = [
 		.isEmail()
 		.withMessage('Email address is not valid')
 		.custom((value) => {
-			return User.findOne({ email: value }).then((user) => {
+			return User.findOne({ email: { $regex: value, $options: 'i' } }).then((user) => {
 				if (user) {
 					return Promise.reject(
 						'The provided email address is already in use by another account'
@@ -28,8 +28,11 @@ const validateSignup = [
 		.withMessage('Please enter a username')
 		.isLength({ min: 4 })
 		.withMessage('Username must be more than 4 characters')
+		.not()
+		.isEmail()
+		.withMessage('Username cannot be an email address.')
 		.custom((value) => {
-			return User.findOne({ username: value }).then((user) => {
+			return User.findOne({ username: { $regex: value, $options: 'i' } }).then((user) => {
 				if (user) {
 					return Promise.reject(
 						'The provided username is already in use by another account'
@@ -37,7 +40,6 @@ const validateSignup = [
 				}
 			});
 		}),
-	check('username').not().isEmail().withMessage('Username cannot be an email address.'),
 	check('password')
 		.exists({ checkFalsy: true })
 		.withMessage('Please enter a secure password')
@@ -81,7 +83,7 @@ router.post(
 		const { email, password, username } = req.body;
 		const user = await User.signup({
 			email,
-			username,
+			username: username,
 			password,
 		});
 

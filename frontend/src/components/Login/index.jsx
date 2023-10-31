@@ -20,7 +20,7 @@ export const Login = () => {
 	useEffect(() => {
 		if (!user) return;
 		navigate('/');
-	});
+	}, [navigate, user]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

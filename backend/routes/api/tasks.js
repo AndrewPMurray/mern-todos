@@ -3,9 +3,8 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 
 const { handleValidationErrors } = require('../../utils/validation');
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/user');
-const { Task } = require('../../db/task');
+const { requireAuth } = require('../../utils/auth');
+const { User, Task } = require('../../db');
 
 const router = express.Router();
 
@@ -16,6 +15,7 @@ const validateTitle = [
 
 router.get(
 	'/:userId',
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const { userId } = req.params;
 		const user = await User.findById(userId).populate('tasks');
@@ -26,6 +26,7 @@ router.get(
 
 router.post(
 	'/',
+	requireAuth,
 	validateTitle,
 	asyncHandler(async (req, res) => {
 		const user = await User.findById(req.body.user);
@@ -40,12 +41,11 @@ router.post(
 
 router.put(
 	'/',
+	requireAuth,
 	validateTitle,
 	asyncHandler(async (req, res) => {
 		const task = req.body;
-		const updatedTask = await Task.findByIdAndUpdate(task._id, task, { new: true }).exec();
-
-		console.log(updatedTask);
+		const updatedTask = await Task.findByIdAndUpdate(task._id, task, { new: true });
 
 		return res.json({ updatedTask });
 	})
@@ -53,6 +53,7 @@ router.put(
 
 router.delete(
 	'/',
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const { id } = req.body;
 

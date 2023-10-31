@@ -64,7 +64,6 @@ export const deleteTask = createAsyncThunk(
 );
 
 export const clearState = createAsyncThunk('tasks/clearTasks', async () => {
-	console.log('cleared');
 	return { response: 'user data cleared' };
 });
 

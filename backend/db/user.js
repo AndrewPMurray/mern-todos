@@ -17,7 +17,10 @@ const userSchema = mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 User.login = async function ({ credential, password }) {
-	const user = await User.findOne().or([{ username: credential }, { email: credential }]);
+	const user = await User.findOne().or([
+		{ username: { $regex: credential, $options: 'i' } },
+		{ email: { $regex: credential, $options: 'i' } },
+	]);
 
 	if (user && user.validatePassword(password)) {
 		return user.toSafeObject();
