@@ -6,6 +6,7 @@ import { createTask, deleteTask, getTasks, updateTask } from '../../store/tasks'
 import { Error } from '../Error';
 
 import './Home.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
 	const user = useSelector((s) => s.session.user);
@@ -18,11 +19,12 @@ export const Home = () => {
 	const [taskInEditing, setTaskInEditing] = useState({});
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!user) return;
+		if (!user) return navigate('/login');
 		dispatch(getTasks(user.id));
-	}, [dispatch, user]);
+	}, [dispatch, navigate, user]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -66,8 +68,6 @@ export const Home = () => {
 	const handleDelete = (taskId) => {
 		dispatch(deleteTask(taskId));
 	};
-
-	if (!user) return <p>Please login to see your todo list</p>;
 
 	return (
 		<div className='tasks-container'>
