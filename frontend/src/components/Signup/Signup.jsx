@@ -17,9 +17,11 @@ export const Signup = () => {
 		e.preventDefault();
 		setErrors({});
 		return dispatch(signup({ email, username, password, confirmPassword })).then((data) => {
-			if (data && data.payload.errors) {
+			if (data?.payload?.errors) {
 				console.log(data.payload.errors);
 				setErrors(data.payload.errors);
+			} else if (data?.payload?.user) {
+				// redirect to home page
 			}
 		});
 	};

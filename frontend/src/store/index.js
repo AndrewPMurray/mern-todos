@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 
-import user from './session';
+import session from './session';
 
 const reducer = combineReducers({
-	user,
+	session,
 });
 
 const store = configureStore({

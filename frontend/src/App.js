@@ -8,6 +8,7 @@ import { Login } from './components/Login/Login';
 import { Signup } from './components/Signup/Signup';
 
 import './App.css';
+import { Home } from './components/Home/Home';
 
 function App() {
 	const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
 		isLoaded && (
 			<BrowserRouter>
 				<Routes>
-					<Route path='/' element={<p>home</p>} />
+					<Route path='/' element={<Home />} />
 					<Route path='login' element={<Login />} />
 					<Route path='signup' element={<Signup />} />
 				</Routes>
