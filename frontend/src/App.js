@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import * as sessionActions from './store/session';
 
+import { Login } from './components/Login/Login';
+import { Signup } from './components/Signup/Signup';
+
 import './App.css';
 
 function App() {
@@ -13,14 +16,6 @@ function App() {
 
 	useEffect(() => {
 		dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-		dispatch(
-			sessionActions.signup({
-				username: 'test',
-				email: 'test@google.com',
-				password: 'awesome1234!',
-				confirmPassword: 'awesome1234!',
-			})
-		);
 	}, [dispatch]);
 
 	return (
@@ -28,7 +23,8 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<p>home</p>} />
-					<Route path='login' element={<p>login page</p>} />
+					<Route path='login' element={<Login />} />
+					<Route path='signup' element={<Signup />} />
 				</Routes>
 			</BrowserRouter>
 		)

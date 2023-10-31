@@ -13,30 +13,30 @@ const validateSignup = [
 		.exists({ checkFalsy: true })
 		.withMessage('Please enter an email address')
 		.isEmail()
-		.withMessage('Email address is not valid')
-		.custom((value) => {
-			return User.findOne({ where: { email: { [Op.iLike]: value } } }).then((user) => {
-				if (user) {
-					return Promise.reject(
-						'The provided email address is already in use by another account'
-					);
-				}
-			});
-		}),
+		.withMessage('Email address is not valid'),
+	// .custom((value) => {
+	// 	return User.findOne({ where: { email: { [Op.iLike]: value } } }).then((user) => {
+	// 		if (user) {
+	// 			return Promise.reject(
+	// 				'The provided email address is already in use by another account'
+	// 			);
+	// 		}
+	// 	});
+	// })
 	check('username')
 		.exists({ checkFalsy: true })
 		.withMessage('Please enter a username')
 		.isLength({ min: 4 })
-		.withMessage('Username must be more than 4 characters')
-		.custom((value) => {
-			return User.findOne({ where: { username: { [Op.iLike]: value } } }).then((user) => {
-				if (user) {
-					return Promise.reject(
-						'The provided username is already in use by another account'
-					);
-				}
-			});
-		}),
+		.withMessage('Username must be more than 4 characters'),
+	// .custom((value) => {
+	// 	return User.findOne({ where: { username: { [Op.iLike]: value } } }).then((user) => {
+	// 		if (user) {
+	// 			return Promise.reject(
+	// 				'The provided username is already in use by another account'
+	// 			);
+	// 		}
+	// 	});
+	// }),
 	check('username').not().isEmail().withMessage('Username cannot be an email address.'),
 	check('password')
 		.exists({ checkFalsy: true })

@@ -1,28 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { csrfFetch } from './csrf';
-// Slice
-const slice = createSlice({
-	name: 'session',
-	initialState: {
-		session: {
-			user: null,
-		},
-	},
-	reducers: {
-		loginSuccess: (state, action) => {
-			state.session.user = action.payload;
-		},
-		logoutSuccess: (state, action) => {
-			state.session.user = null;
-		},
-	},
-});
 
-// Actions
-const { loginSuccess, logoutSuccess } = slice.actions;
-
-export const login = (user) => async (dispatch) => {
+export const login = createAsyncThunk('session/setUser', async (user) => {
 	const { credential, password } = user;
 	const response = await csrfFetch('/api/session', {
 		method: 'POST',
@@ -32,18 +11,16 @@ export const login = (user) => async (dispatch) => {
 		}),
 	});
 	const data = await response.json();
-	dispatch(loginSuccess(data.user));
-	return response;
-};
+	return data.user;
+});
 
-export const restoreUser = () => async (dispatch) => {
+export const restoreUser = createAsyncThunk('session/restoreUser', async () => {
 	const response = await csrfFetch('/api/session');
 	const data = await response.json();
-	dispatch(loginSuccess(data.user));
-	return response;
-};
+	return data.user;
+});
 
-export const signup = (user) => async (dispatch) => {
+export const signup = createAsyncThunk('session/signUpUser', async (user) => {
 	const { username, email, password, confirmPassword } = user;
 	const response = await csrfFetch('/api/users', {
 		method: 'POST',
@@ -55,16 +32,38 @@ export const signup = (user) => async (dispatch) => {
 		}),
 	});
 	const data = await response.json();
-	dispatch(loginSuccess(data.user));
-	return response;
-};
+	return data;
+});
 
-export const logout = () => async (dispatch) => {
+export const logout = createAsyncThunk('session/logout', async () => {
 	const response = await csrfFetch('/api/session', {
 		method: 'DELETE',
 	});
-	dispatch(logoutSuccess());
-	return response;
-};
+	const data = await response.json();
+	return data;
+});
 
-export default slice.reducer;
+const initialState = { user: null };
+
+const sessionSlice = createSlice({
+	name: 'session',
+	initialState,
+	reducers: {},
+	extraReducers: (builder) => {
+		builder
+			.addCase(login.fulfilled, (state, action) => {
+				state.user = action.payload || null;
+			})
+			.addCase(restoreUser.fulfilled, (state, action) => {
+				state.user = action.payload || null;
+			})
+			.addCase(signup.fulfilled, (state, action) => {
+				state.user = action.payload || null;
+			})
+			.addCase(logout.fulfilled, (state, _action) => {
+				state.user = null;
+			});
+	},
+});
+
+export default sessionSlice.reducer;
