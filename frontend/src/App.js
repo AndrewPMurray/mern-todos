@@ -4,11 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import * as sessionActions from './store/session';
 
-import { Login } from './components/Login/Login';
-import { Signup } from './components/Signup/Signup';
+import { Home } from './components/Home';
+import { Login } from './components/Login';
+import { Nav } from './components/Nav';
+import { Signup } from './components/Signup';
 
 import './App.css';
-import { Home } from './components/Home/Home';
 
 function App() {
 	const dispatch = useDispatch();
@@ -22,11 +23,14 @@ function App() {
 	return (
 		isLoaded && (
 			<BrowserRouter>
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='login' element={<Login />} />
-					<Route path='signup' element={<Signup />} />
-				</Routes>
+				<Nav isLoaded={isLoaded} />
+				<div>
+					<Routes>
+						<Route path='/' element={<Home />} />
+						<Route path='login' element={<Login />} />
+						<Route path='signup' element={<Signup />} />
+					</Routes>
+				</div>
 			</BrowserRouter>
 		)
 	);

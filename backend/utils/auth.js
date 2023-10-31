@@ -29,7 +29,8 @@ const restoreUser = (req, res, next) => {
 
 		try {
 			const { id } = jwtPayload.data;
-			req.user = await User.findById(id).exec();
+			const user = await User.findById(id);
+			req.user = user.toSafeObject();
 		} catch (e) {
 			res.clearCookie('token');
 			return next();

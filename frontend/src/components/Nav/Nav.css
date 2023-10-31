@@ -1,0 +1,48 @@
+.nav-container {
+	height: 80px;
+	background-color: transparent;
+}
+
+.nav {
+	display: flex;
+	width: 100vw;
+	justify-content: space-between;
+	align-items: flex-start;
+	align-content: flex-start;
+	padding-left: 20px;
+}
+
+.nav li {
+	display: flex;
+	width: auto;
+	justify-content: space-between;
+	align-items: flex-start;
+	list-style: none;
+	margin-right: 10px;
+}
+
+.nav a {
+	display: flex;
+	align-items: flex-start;
+	text-decoration: none;
+	font-size: 16px;
+	color: black;
+	margin: 0px;
+}
+
+.nav h1 {
+	margin: 0;
+}
+
+.login-signup-links {
+	display: flex;
+	margin-right: 15px;
+}
+
+.login-signup-links a {
+	margin: 0 12px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+}

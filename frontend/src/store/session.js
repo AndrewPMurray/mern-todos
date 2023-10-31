@@ -1,17 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { csrfFetch } from './csrf';
 
-export const login = createAsyncThunk('session/setUser', async (user) => {
+export const login = createAsyncThunk('session/setUser', async (user, { rejectWithValue }) => {
 	const { credential, password } = user;
-	const response = await csrfFetch('/api/session', {
-		method: 'POST',
-		body: JSON.stringify({
-			credential,
-			password,
-		}),
-	});
-	const data = await response.json();
-	return data.user;
+	try {
+		const response = await csrfFetch('/api/session', {
+			method: 'POST',
+			body: JSON.stringify({
+				credential,
+				password,
+			}),
+		});
+		const data = await response.json();
+		return data.user;
+	} catch (e) {
+		const errors = await e.json();
+		return rejectWithValue(errors);
+	}
 });
 
 export const restoreUser = createAsyncThunk('session/restoreUser', async () => {
@@ -20,19 +25,25 @@ export const restoreUser = createAsyncThunk('session/restoreUser', async () => {
 	return data.user;
 });
 
-export const signup = createAsyncThunk('session/signUpUser', async (user) => {
+export const signup = createAsyncThunk('session/signUpUser', async (user, { rejectWithValue }) => {
 	const { username, email, password, confirmPassword } = user;
-	const response = await csrfFetch('/api/users', {
-		method: 'POST',
-		body: JSON.stringify({
-			username,
-			email,
-			password,
-			confirmPassword,
-		}),
-	});
-	const data = await response.json();
-	return data;
+
+	try {
+		const response = await csrfFetch('/api/users', {
+			method: 'POST',
+			body: JSON.stringify({
+				username,
+				email,
+				password,
+				confirmPassword,
+			}),
+		});
+		const data = await response.json();
+		return data;
+	} catch (e) {
+		const errors = await e.json();
+		return rejectWithValue(errors);
+	}
 });
 
 export const logout = createAsyncThunk('session/logout', async () => {

@@ -36,8 +36,6 @@ router.post(
 			password,
 		});
 
-		console.log(user);
-
 		if (!user) {
 			const err = new Error('Login failed');
 			err.status = 401;

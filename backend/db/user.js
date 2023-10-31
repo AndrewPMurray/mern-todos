@@ -6,17 +6,21 @@ const userSchema = mongoose.Schema({
 	username: String,
 	email: String,
 	hashedPassword: String,
+	tasks: [
+		{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Task',
+		},
+	],
 });
 
 const User = mongoose.model('User', userSchema);
 
 User.login = async function ({ credential, password }) {
-	const user = await User.findOne()
-		.or([{ username: credential }, { email: credential }])
-		.exec();
+	const user = await User.findOne().or([{ username: credential }, { email: credential }]);
 
 	if (user && user.validatePassword(password)) {
-		return { id: user._id, username: user.username, email: user.email };
+		return user.toSafeObject();
 	}
 };
 
@@ -28,7 +32,7 @@ User.signup = async function ({ username, email, password }) {
 		email,
 		hashedPassword,
 	});
-	return { id: user._id, username: user.username, email: user.email };
+	return user.toSafeObject();
 };
 
 User.prototype.toSafeObject = function () {
