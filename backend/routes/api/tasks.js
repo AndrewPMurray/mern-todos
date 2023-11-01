@@ -14,11 +14,20 @@ const validateTitle = [
 ];
 
 router.get(
-	'/:userId',
+	'/:username',
 	requireAuth,
-	asyncHandler(async (req, res) => {
-		const { userId } = req.params;
-		const user = await User.findById(userId).populate('tasks');
+	asyncHandler(async (req, res, next) => {
+		const { username } = req.params;
+		const user = await User.findOne({ username }).populate('tasks');
+
+		if (!user) {
+			res.status(404);
+			return next({
+				title: 'Bad request',
+				status: 400,
+				errors: { username: 'No user found with that username' },
+			});
+		}
 
 		return res.json({ tasks: user.tasks ?? [] });
 	})
@@ -26,7 +35,6 @@ router.get(
 
 router.post(
 	'/',
-	requireAuth,
 	validateTitle,
 	asyncHandler(async (req, res) => {
 		const user = await User.findById(req.body.user);
@@ -41,7 +49,6 @@ router.post(
 
 router.put(
 	'/',
-	requireAuth,
 	validateTitle,
 	asyncHandler(async (req, res) => {
 		const task = req.body;

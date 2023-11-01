@@ -1,16 +1,33 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { csrfFetch } from './csrf';
 
-export const getTasks = createAsyncThunk('tasks/getTasks', async (userId, { rejectWithValue }) => {
-	try {
-		const response = await csrfFetch(`/api/tasks/${userId}`);
-		const data = await response.json();
-		return data.tasks;
-	} catch (e) {
-		const errors = await e.json();
-		return rejectWithValue(errors);
+export const getTasks = createAsyncThunk(
+	'tasks/getTasks',
+	async (userName, { rejectWithValue }) => {
+		try {
+			const response = await csrfFetch(`/api/tasks/${userName}`);
+			const data = await response.json();
+			return data.tasks;
+		} catch (e) {
+			const errors = await e.json();
+			return rejectWithValue(errors);
+		}
 	}
-});
+);
+
+export const searchTasks = createAsyncThunk(
+	'tasks/searchTasks',
+	async (userName, { rejectWithValue }) => {
+		try {
+			const response = await csrfFetch(`/api/tasks/${userName}`);
+			const data = await response.json();
+			return data.tasks;
+		} catch (e) {
+			const errors = await e.json();
+			return rejectWithValue(errors);
+		}
+	}
+);
 
 export const createTask = createAsyncThunk(
 	'tasks/createTask',
@@ -67,7 +84,7 @@ export const clearState = createAsyncThunk('tasks/clearTasks', async () => {
 	return { response: 'user data cleared' };
 });
 
-const initialState = [];
+const initialState = { myTasks: [], searchTasks: [] };
 
 const sessionSlice = createSlice({
 	name: 'session',
@@ -75,31 +92,39 @@ const sessionSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getTasks.fulfilled, (_state, action) => {
-				const newState = action.payload;
+			.addCase(getTasks.fulfilled, (state, action) => {
+				const newState = { ...state, myTasks: action.payload };
+				return newState;
+			})
+			.addCase(searchTasks.fulfilled, (state, action) => {
+				const newState = { ...state, searchTasks: action.payload };
+				return newState;
+			})
+			.addCase(searchTasks.rejected, (state) => {
+				const newState = { ...state, searchTasks: [] };
 				return newState;
 			})
 			.addCase(createTask.fulfilled, (state, action) => {
-				state.push(action.payload);
+				state.myTasks.push(action.payload);
 			})
 			.addCase(updateTask.fulfilled, (state, action) => {
-				const index = state.findIndex((task) => task._id === action.payload._id);
-				const newState = [...state];
+				const myTasks = [...state.myTasks];
+				const index = myTasks.findIndex((task) => task._id === action.payload._id);
 
-				newState[index] = action.payload;
+				myTasks[index] = action.payload;
 
-				return newState;
+				state.myTasks = myTasks;
 			})
 			.addCase(deleteTask.fulfilled, (state, action) => {
-				const newState = [...state];
-				const index = newState.findIndex((task) => task._id === action.payload._id);
+				const myTasks = [...state.myTasks];
+				const index = myTasks.findIndex((task) => task._id === action.payload._id);
 
-				newState.splice(index, 1);
+				myTasks.splice(index, 1);
 
-				return newState;
+				state.myTasks = myTasks;
 			})
 			.addCase(clearState.fulfilled, () => {
-				const newState = [];
+				const newState = { myTasks: [], searchTasks: [] };
 				return newState;
 			});
 	},
