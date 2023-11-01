@@ -70,6 +70,8 @@ export const Todos = ({ user }) => {
 		dispatch(deleteTask(taskId));
 	};
 
+	if (!user) return null;
+
 	return (
 		<div className='todos-container'>
 			<div className='todo-list'>

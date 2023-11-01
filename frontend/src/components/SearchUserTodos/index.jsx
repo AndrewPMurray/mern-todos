@@ -8,7 +8,7 @@ import { Todo } from '../Todo';
 export const SearchUserTodos = ({ searchError, isSearchLoading }) => {
 	const navigate = useNavigate();
 	const todos = useSelector((s) => s.tasks.searchTasks);
-	const foundUsername = useSelector((s) => s.tasks.searchUsername) ?? '';
+	const foundUsername = useSelector((s) => s.tasks.searchUsername);
 	const user = useSelector((s) => s.session.user);
 
 	useEffect(() => {
@@ -19,10 +19,12 @@ export const SearchUserTodos = ({ searchError, isSearchLoading }) => {
 
 	if (isSearchLoading) return null;
 
+	if (!user) return null;
+
 	return (
 		<div className='todos-container'>
 			<div className='todo-list'>
-				<h1 className='todo-list-header'>{foundUsername}'s ToDos</h1>
+				{foundUsername && <h1 className='todo-list-header'>{foundUsername}'s ToDos</h1>}
 				{searchError.username ? (
 					<Error text={searchError.username} />
 				) : (

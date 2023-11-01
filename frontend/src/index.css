@@ -47,13 +47,17 @@ table {
 }
 /* end reset */
 
+* {
+	font-family: 'montserrat'
+}
+
 button {
 	border: none;
 	cursor: pointer;
 	padding: 10px;
 	border-radius: 5px;
 	font-size: 16px;
-	width: 30vw;
+	width: 300px;
 	min-width: 225px;
 	align-self: center;
 	margin-top: 50px;
@@ -69,12 +73,12 @@ button:hover {
 
 .app-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .component-container {
-	min-height: 100vh;
-	min-width: 80vw;
+	height: 100vh;
+	width: 80vw;
 	display: flex;
 	align-items: center;
 	justify-content: center;

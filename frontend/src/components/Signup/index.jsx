@@ -69,7 +69,7 @@ export const Signup = () => {
 										placeholder='Please provide your email address'
 										onChange={(e) => setEmail(e.target.value)}
 									/>
-									{errors.email && <Error text={errors.email} />}
+									<Error text={errors.email ? errors.email : ''} />
 								</div>
 							</div>
 						</div>
@@ -97,9 +97,10 @@ export const Signup = () => {
 										placeholder='Please confirm your password'
 										onChange={(e) => setConfirmPassword(e.target.value)}
 									/>
-									{errors.confirmPassword && (
-										<Error text={errors.confirmPassword} />
-									)}
+
+									<Error
+										text={errors.confirmPassword ? errors.confirmPassword : ''}
+									/>
 								</div>
 							</div>
 						</div>
