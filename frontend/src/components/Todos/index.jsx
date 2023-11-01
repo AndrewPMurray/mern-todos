@@ -97,6 +97,11 @@ export const Todos = ({ user }) => {
 						value={title}
 						placeholder='Create a new ToDo (title required)'
 						onChange={(e) => setTitle(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								handleSubmit(e);
+							}
+						}}
 					/>
 					{errors.title && <Error text={errors.title} />}
 				</div>

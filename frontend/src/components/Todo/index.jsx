@@ -37,6 +37,11 @@ export const Todo = ({
 							placeholder='title required'
 							name='edit-title'
 							onChange={(e) => setEditTitle(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									handleUpdate(todo);
+								}
+							}}
 						/>
 						<p
 							style={{
@@ -46,7 +51,7 @@ export const Todo = ({
 								cursor: 'pointer',
 							}}
 							onClick={() => {
-								setTodoInEditing({});
+								setEditTitle('');
 							}}
 						>
 							x
@@ -61,20 +66,20 @@ export const Todo = ({
 			)}
 			{!isGuestTodo && (
 				<div className='edit-task-icons'>
-					<p
+					<div
 						onClick={() => {
 							setEditTitle(todo.title);
 							setTodoInEditing(todo);
 						}}
 					>
-						e
-					</p>
+						<i className='fa-regular fa-pen-to-square' />
+					</div>
 					<p
 						onClick={() => {
 							handleDelete(todo._id);
 						}}
 					>
-						d
+						<i className='fa-solid fa-trash' />
 					</p>
 				</div>
 			)}
