@@ -1,19 +1,20 @@
 .nav-container {
-	height: 80px;
-	background-color: transparent;
-}
-
-.nav {
+	height: calc(100vh - 40px);
+	width: 20vw;
+	min-width: 75px;
+	position: sticky;
+	padding: 20px;
+	margin-right: 20px;
 	display: flex;
-	width: 100vw;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: flex-start;
-	align-content: flex-start;
-	padding-left: 20px;
+	align-items: center;
+	border-right: 1px solid black;
 }
 
-.nav li {
+.nav-container li {
 	display: flex;
+	flex-direction: column;
 	width: auto;
 	justify-content: space-between;
 	align-items: flex-start;
@@ -21,28 +22,29 @@
 	margin-right: 10px;
 }
 
-.nav a {
+.nav-container a {
 	display: flex;
+	flex-direction: column;
 	align-items: flex-start;
 	text-decoration: none;
 	font-size: 16px;
 	color: black;
-	margin: 0px;
-}
-
-.nav h1 {
-	margin: 0;
 }
 
 .login-signup-links {
 	display: flex;
-	margin-right: 15px;
+	flex-direction: column;
 }
 
 .login-signup-links a {
-	margin: 0 12px;
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
 	text-decoration: none;
+	margin: 10px 0;
+}
+
+.search-input {
+	margin-top: 5px;
+	width: 100%;
 }

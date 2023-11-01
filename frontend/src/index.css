@@ -1,13 +1,140 @@
+/* default font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-family: 'Montserrat';
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* end reset */
+
+button {
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 16px;
+	width: 30vw;
+	min-width: 225px;
+	align-self: center;
+	margin-top: 50px;
+	background-color: rgb(15, 134, 83);
+	color: white;
+	transition-duration: 200ms;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button:hover {
+	background-color: rgb(23, 172, 115);
+}
+
+
+.app-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.component-container {
+	min-height: 100vh;
+	min-width: 80vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.input {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	min-width: 266px;
+}
+
+.input * {
+	margin: 3px 0;
+}
+
+.input input {
+	height: 20px;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.todo-list-header {
+	text-align: center;
+	font-size: 36px;
+	margin-bottom: 10px;
+}
+
+.todos-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 75vh;
+}
+
+/* animations */
+.flash {
+	animation: flash 1s;
+	border: 3px solid red;
+}
+  
+@keyframes flash {
+	25% {
+		border: 3px solid red;
+	}
+	50% {
+		border: 3px solid transparent;
+	}
+	75% {
+		border: 3px solid red;
+	}
+	100% {
+		border: 3px solid transparent;
+	}
 }

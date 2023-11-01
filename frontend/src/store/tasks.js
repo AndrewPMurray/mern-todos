@@ -3,11 +3,11 @@ import { csrfFetch } from './csrf';
 
 export const getTasks = createAsyncThunk(
 	'tasks/getTasks',
-	async (userName, { rejectWithValue }) => {
+	async (username, { rejectWithValue }) => {
 		try {
-			const response = await csrfFetch(`/api/tasks/${userName}`);
+			const response = await csrfFetch(`/api/tasks/${username}`);
 			const data = await response.json();
-			return data.tasks;
+			return { tasks: data.tasks, username: username };
 		} catch (e) {
 			const errors = await e.json();
 			return rejectWithValue(errors);
@@ -17,11 +17,11 @@ export const getTasks = createAsyncThunk(
 
 export const searchTasks = createAsyncThunk(
 	'tasks/searchTasks',
-	async (userName, { rejectWithValue }) => {
+	async (username, { rejectWithValue }) => {
 		try {
-			const response = await csrfFetch(`/api/tasks/${userName}`);
+			const response = await csrfFetch(`/api/tasks/${username}`);
 			const data = await response.json();
-			return data.tasks;
+			return { tasks: data.tasks, username: username };
 		} catch (e) {
 			const errors = await e.json();
 			return rejectWithValue(errors);
@@ -84,7 +84,7 @@ export const clearState = createAsyncThunk('tasks/clearTasks', async () => {
 	return { response: 'user data cleared' };
 });
 
-const initialState = { myTasks: [], searchTasks: [] };
+const initialState = { searchUsername: null, myTasks: [], searchTasks: [] };
 
 const sessionSlice = createSlice({
 	name: 'session',
@@ -93,15 +93,19 @@ const sessionSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(getTasks.fulfilled, (state, action) => {
-				const newState = { ...state, myTasks: action.payload };
+				const newState = { ...state, myTasks: action.payload.tasks };
 				return newState;
 			})
 			.addCase(searchTasks.fulfilled, (state, action) => {
-				const newState = { ...state, searchTasks: action.payload };
+				const newState = {
+					...state,
+					searchTasks: action.payload.tasks,
+					searchUsername: action.payload.username,
+				};
 				return newState;
 			})
 			.addCase(searchTasks.rejected, (state) => {
-				const newState = { ...state, searchTasks: [] };
+				const newState = { ...state, searchTasks: [], searchUsername: null };
 				return newState;
 			})
 			.addCase(createTask.fulfilled, (state, action) => {
@@ -124,7 +128,7 @@ const sessionSlice = createSlice({
 				state.myTasks = myTasks;
 			})
 			.addCase(clearState.fulfilled, () => {
-				const newState = { myTasks: [], searchTasks: [] };
+				const newState = { searchUsername: null, myTasks: [], searchTasks: [] };
 				return newState;
 			});
 	},

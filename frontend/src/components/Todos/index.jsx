@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { createTask, deleteTask, getTasks, updateTask } from '../../store/tasks';
 
 import { Error } from '../Error';
+import { Todo } from '../Todo';
 
 import './Todos.css';
-import { useNavigate } from 'react-router-dom';
 
 export const Todos = ({ user }) => {
-	const tasks = useSelector((s) => s.tasks.myTasks);
+	const todos = useSelector((s) => s.tasks.myTasks);
 
 	const [title, setTitle] = useState('');
 	const [errors, setErrors] = useState({});
 	const [editTitle, setEditTitle] = useState('');
-	const [editErrors, setEditErrors] = useState({});
-	const [taskInEditing, setTaskInEditing] = useState({});
+	const [todoInEditing, setTodoInEditing] = useState({});
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -55,11 +55,13 @@ export const Todos = ({ user }) => {
 
 	const handleUpdate = (task) => {
 		dispatch(updateTask({ ...task, title: editTitle })).then((data) => {
-			setEditErrors({});
 			if (data.payload?.errors) {
-				setEditErrors(data.payload.errors);
+				const inputEl = document.querySelector('.todo-item-input');
+				if (!inputEl.classList.contains('flash')) {
+					inputEl.classList.add('flash');
+				}
 			} else {
-				setTaskInEditing({});
+				setTodoInEditing({});
 			}
 		});
 	};
@@ -69,71 +71,36 @@ export const Todos = ({ user }) => {
 	};
 
 	return (
-		<div className='tasks-container'>
-			<div className='task-create-search-container'>
-				<h3 style={{ margin: 0 }}>Create a new Task:</h3>
-				<div className='input-container'>
+		<div className='todos-container'>
+			<div className='todo-list'>
+				<h1 className='todo-list-header'>My ToDos</h1>
+				{todos.map((todo) => (
+					<Todo
+						key={todo._id}
+						todo={todo}
+						editTitle={editTitle}
+						setEditTitle={setEditTitle}
+						todoInEditing={todoInEditing}
+						setTodoInEditing={setTodoInEditing}
+						handleComplete={handleComplete}
+						handleUpdate={handleUpdate}
+						handleDelete={handleDelete}
+					/>
+				))}
+			</div>
+			<div className='todo-create-container'>
+				<div className='new-todo-input-container'>
 					<input
 						name='title'
 						value={title}
-						placeholder='title for task (required)'
+						placeholder='Create a new ToDo (title required)'
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 					{errors.title && <Error text={errors.title} />}
 				</div>
-				<button onClick={handleSubmit}>Create Task</button>
-			</div>
-			<div className='task-list'>
-				{tasks.map((task) => (
-					<div className='task' key={task._id}>
-						<input
-							type='checkbox'
-							name='isComplete'
-							value={task.isComplete}
-							checked={task.isComplete ?? false}
-							onChange={() => handleComplete(task)}
-						/>
-						{taskInEditing._id === task._id ? (
-							<div>
-								<input
-									value={editTitle}
-									placeholder='title required'
-									name='edit-title'
-									onChange={(e) => setEditTitle(e.target.value)}
-								/>
-								<button onClick={() => handleUpdate(task)}>Save</button>
-								{editErrors.title && <Error text={editErrors.title} />}
-							</div>
-						) : (
-							<p>{task.title}</p>
-						)}
-						<div
-							className='edit-task-icons'
-							style={{
-								display: 'flex',
-							}}
-						>
-							<p
-								style={{ cursor: 'pointer' }}
-								onClick={() => {
-									setEditTitle(task.title);
-									setEditErrors({});
-									setTaskInEditing(task);
-								}}
-							>
-								e
-							</p>
-							<p
-								style={{ cursor: 'pointer' }}
-								onClick={() => {
-									handleDelete(task._id);
-								}}
-							>
-								d
-							</p>
-						</div>
-					</div>
-				))}
+				<button className='create-todo-button' onClick={handleSubmit}>
+					Create ToDo
+				</button>
 			</div>
 		</div>
 	);

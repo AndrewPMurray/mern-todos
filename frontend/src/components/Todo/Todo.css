@@ -1,0 +1,49 @@
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 2px;
+    padding: 5px;
+    height: 25px;
+    margin: 3px 0;
+}
+
+.edit-task-icons {
+    display: flex;
+    width: 40px;
+    justify-content: space-between;
+}
+
+.edit-task-icons * {
+    cursor: pointer;
+}
+
+.todo-edit-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 10px;
+}
+
+.todo-item-input {
+    max-height: 20px;
+    min-width: 150px;
+    width: calc(40vw - 40px);
+    padding-right: 20px;
+}
+
+.todo-edit-button {
+    max-height: 20px;
+    margin: 0;
+    margin-left: 5px;
+    min-width: 50px;
+    max-width: 50px;
+    line-height: 0;
+    font-size: 12px;
+    text-align: center;
+    align-self: flex-start;
+}
+
+.edit-task-icons * {
+    text-align: center;
+}

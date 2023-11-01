@@ -35,52 +35,90 @@ export const Signup = () => {
 	};
 
 	return (
-		<div className='signup-container'>
-			<form onSubmit={handleSubmit}>
-				<div className='input-container'>
-					<label>Username:</label>
-					<input
-						name='username'
-						value={username}
-						placeholder='Choose a unique username'
-						onChange={(e) => setUsername(e.target.value)}
-					/>
-					{errors.username && <Error text={errors.username} />}
-				</div>
-				<div className='input-container'>
-					<label>Email Address:</label>
-					<input
-						name='email'
-						value={email}
-						placeholder='Please provide your email address'
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-					{errors.email && <Error text={errors.email} />}
-				</div>
-				<div className='input-container'>
-					<label>Password:</label>
-					<input
-						type='password'
-						name='password'
-						value={password}
-						placeholder='Use a secure password'
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-					{errors.password && <Error text={errors.password} />}
-				</div>
-				<div className='input-container'>
-					<label>Confirm Password:</label>
-					<input
-						type='password'
-						name='confirm-password'
-						value={confirmPassword}
-						placeholder='Please confirm your password'
-						onChange={(e) => setConfirmPassword(e.target.value)}
-					/>
-					{errors.confirmPassword && <Error text={errors.confirmPassword} />}
-				</div>
-				<button type='submit'>Submit</button>
-			</form>
+		<div>
+			<div className='signup-container'>
+				<form onSubmit={handleSubmit}>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'row',
+							alignItems: 'space-between',
+							justifyContent: 'space-between',
+							width: '500px',
+						}}
+					>
+						<div className='signup-sub-container'>
+							<div className='input-container'>
+								<div className='input'>
+									<label>Username:</label>
+									<input
+										name='username'
+										value={username}
+										placeholder='Choose a unique username'
+										onChange={(e) => setUsername(e.target.value)}
+									/>
+									{errors.username && <Error text={errors.username} />}
+								</div>
+							</div>
+							<div className='input-container'>
+								<div className='input'>
+									<label>Email Address:</label>
+									<input
+										name='email'
+										value={email}
+										placeholder='Please provide your email address'
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+									{errors.email && <Error text={errors.email} />}
+								</div>
+							</div>
+						</div>
+						<div className='signup-sub-container'>
+							<div className='input-container'>
+								<div className='input'>
+									<label>Password:</label>
+									<input
+										type='password'
+										name='password'
+										value={password}
+										placeholder='Use a secure password'
+										onChange={(e) => setPassword(e.target.value)}
+									/>
+									{errors.password && <Error text={errors.password} />}
+								</div>
+							</div>
+							<div className='input-container'>
+								<div className='input'>
+									<label>Confirm Password:</label>
+									<input
+										type='password'
+										name='confirm-password'
+										value={confirmPassword}
+										placeholder='Please confirm your password'
+										onChange={(e) => setConfirmPassword(e.target.value)}
+									/>
+									{errors.confirmPassword && (
+										<Error text={errors.confirmPassword} />
+									)}
+								</div>
+							</div>
+						</div>
+					</div>
+					<button type='submit'>Submit</button>
+				</form>
+			</div>
+			<p
+				style={{
+					fontSize: '12px',
+					marginTop: '5px',
+					width: '80%',
+					minWidth: '200px',
+					lineHeight: '1.2',
+				}}
+			>
+				Note: Passwords must be at least 8 characters long and contain one uppercase letter,
+				one number, and one special character
+			</p>
 		</div>
 	);
 };
