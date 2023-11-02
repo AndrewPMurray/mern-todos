@@ -24,7 +24,7 @@ router.get(
 			res.status(404);
 			return next({
 				title: 'Bad request',
-				status: 400,
+				status: 404,
 				errors: { username: 'No user found with that username' },
 			});
 		}
