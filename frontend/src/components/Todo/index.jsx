@@ -10,60 +10,69 @@ export const Todo = ({
 	handleUpdate,
 	handleDelete,
 	isGuestTodo,
+	index,
+	listLength,
 }) => {
 	return (
 		<div
 			className='todo'
 			key={todo._id}
 			style={{
-				backgroundColor: todo.isComplete ? 'rgb(127, 212, 127)' : 'rgb(241, 162, 162)',
+				backgroundColor: todo.isComplete ? 'rgba(127, 212, 127, 0.5)' : undefined,
+				borderBottom: index !== listLength ? '1px solid rgba(0, 0, 0, 0.2)' : undefined,
 			}}
 		>
-			{!isGuestTodo && (
-				<input
-					type='checkbox'
-					name='isComplete'
-					value={todo.isComplete}
-					checked={todo.isComplete ?? false}
-					onChange={() => handleComplete(todo)}
-				/>
-			)}
-			{!isGuestTodo && todoInEditing._id === todo._id ? (
-				<div className='todo-edit-container'>
-					<div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-						<input
-							className='todo-item-input'
-							value={editTitle}
-							placeholder='title required'
-							name='edit-title'
-							onChange={(e) => setEditTitle(e.target.value)}
-							onKeyDown={(e) => {
-								if (e.key === 'Enter') {
-									handleUpdate(todo);
-								}
-							}}
-						/>
-						<p
+			<div style={{ display: 'flex', alignItems: 'center', maxWidth: '80%' }}>
+				{!isGuestTodo && (
+					<input
+						type='checkbox'
+						name='isComplete'
+						value={todo.isComplete}
+						checked={todo.isComplete ?? false}
+						onChange={() => handleComplete(todo)}
+						style={{ cursor: 'pointer' }}
+					/>
+				)}
+				{!isGuestTodo && todoInEditing._id === todo._id ? (
+					<div className='todo-edit-container'>
+						<div
 							style={{
-								position: 'absolute',
-								right: '5px',
-								top: '3px',
-								cursor: 'pointer',
-							}}
-							onClick={() => {
-								setEditTitle('');
+								display: 'flex',
+								flexDirection: 'column',
+								position: 'relative',
 							}}
 						>
-							x
-						</p>
+							<input
+								className='todo-item-input'
+								value={editTitle}
+								placeholder='title required'
+								name='edit-title'
+								onChange={(e) => setEditTitle(e.target.value)}
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') {
+										handleUpdate(todo);
+									}
+								}}
+							/>
+							<p
+								style={{
+									position: 'absolute',
+									right: '5px',
+									top: '3px',
+									cursor: 'pointer',
+								}}
+								onClick={() => {
+									setEditTitle('');
+								}}
+							>
+								x
+							</p>
+						</div>
 					</div>
-					<button className='todo-edit-button' onClick={() => handleUpdate(todo)}>
-						Save
-					</button>
-				</div>
-			) : (
-				<p className='todo-title'>{todo.title}</p>
-			)}
+				) : (
+					<p className='todo-title'>{todo.title}</p>
+				)}
+			</div>
 			{!isGuestTodo && (
 				<div className='edit-task-icons'>
 					<div

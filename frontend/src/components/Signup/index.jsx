@@ -35,7 +35,7 @@ export const Signup = () => {
 	};
 
 	return (
-		<div>
+		<div className='signup-container'>
 			<div className='signup-container'>
 				<form onSubmit={handleSubmit}>
 					<div

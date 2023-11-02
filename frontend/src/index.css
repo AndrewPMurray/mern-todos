@@ -70,6 +70,36 @@ button:hover {
 	background-color: rgb(23, 172, 115);
 }
 
+input[type="checkbox"] {
+	appearance: none;
+	background-color: #fff;
+	margin: 0;
+	margin-right: 8px;
+	font: inherit;
+	width: 1.15em;
+	height: 1.15em;
+	border: 0.15em solid black;
+	border-radius: 1em;
+	transform: translateY(-0.075em);
+	display: grid;
+	place-content: center;
+}
+
+input[type="checkbox"]::before {
+	width: 0.65em;
+	height: 0.65em;
+	transform: scale(0);
+	transition: 120ms transform ease-in-out;
+	box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+input[type="checkbox"]:checked::before {
+	transform: scale(1);
+}
+
+input[type="checkbox"]:checked {
+	background-color: rgba(15, 134, 83, 0.7);
+}
 
 .app-container {
   display: flex;
@@ -110,16 +140,42 @@ button:hover {
 }
 
 .todo-list-header {
-	text-align: center;
-	font-size: 36px;
+	font-size: 24px;
 	margin-bottom: 10px;
 }
 
 .todos-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     min-height: 75vh;
+}
+
+.todo-list {
+    width: calc(80vw - 80px);
+    padding: 10px;
+	padding-bottom: 0;
+    border-radius: 5px;
+    overflow-y: auto;
+	position: relative;
+}
+
+.nav-icon {
+	margin-right: 5px;
+}
+
+.fade {
+    position: sticky;
+	bottom: -5px;
+    
+    width: 100%;
+    height: calc(10vh - 5px);
+    border: none;
+    
+    background-image: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0), 
+        rgba(255, 255, 255, 1)
+    90%);
 }
 
 /* animations */

@@ -3,9 +3,10 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 2px;
-    padding: 5px;
-    height: 25px;
-    margin: 3px 0;
+    padding: 10px;
+    min-height: 25px;
+    min-width: 30em;
+    transition-duration: 250ms;
 }
 
 .edit-task-icons {
@@ -16,6 +17,12 @@
 
 .edit-task-icons * {
     cursor: pointer;
+    text-align: center;
+}
+
+.todo-title {
+    max-width: 95%;
+    line-height: 1.3;
 }
 
 .todo-edit-container {
@@ -26,10 +33,11 @@
 }
 
 .todo-item-input {
-    max-height: 20px;
     min-width: 150px;
     width: calc(40vw - 40px);
     padding-right: 20px;
+    border-radius: 7px;
+    align-self: center;
 }
 
 .todo-edit-button {
@@ -42,8 +50,4 @@
     font-size: 12px;
     text-align: center;
     align-self: flex-start;
-}
-
-.edit-task-icons * {
-    text-align: center;
 }

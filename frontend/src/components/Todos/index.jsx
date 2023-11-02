@@ -74,9 +74,9 @@ export const Todos = ({ user }) => {
 
 	return (
 		<div className='todos-container'>
-			<div className='todo-list'>
-				<h1 className='todo-list-header'>My ToDos</h1>
-				{todos.map((todo) => (
+			<h1 className='todo-list-header'>My ToDos</h1>
+			<div className='todo-list' style={{ maxHeight: 'calc(58vh - 130px)' }}>
+				{todos.map((todo, i) => (
 					<Todo
 						key={todo._id}
 						todo={todo}
@@ -87,8 +87,11 @@ export const Todos = ({ user }) => {
 						handleComplete={handleComplete}
 						handleUpdate={handleUpdate}
 						handleDelete={handleDelete}
+						index={i}
+						listLength={todos.length - 1}
 					/>
 				))}
+				<div className='fade' />
 			</div>
 			<div className='todo-create-container'>
 				<div className='new-todo-input-container'>

@@ -20,34 +20,45 @@ export const Nav = ({ isLoaded, searchUsername, setSearchUsername, handleSearch 
 
 	return (
 		<ul className='nav-container'>
-			<div>
+			<div className='nav-section'>
 				<NavLink to='/'>
-					<h1 style={{ width: '100%', textAlign: 'center' }}>Home</h1>
+					<h1>
+						<i className='fa-solid fa-house nav-icon' />
+						Home
+					</h1>
 				</NavLink>
-				{user && <p style={{ marginTop: '20px', fontSize: '14px' }}>Search ToDos</p>}
 				{user && (
-					<input
-						className='search-input'
-						placeholder='username'
-						value={searchUsername}
-						onChange={(e) => setSearchUsername(e.target.value)}
-						onKeyDown={(e) => {
-							if (e.key === 'Enter') {
-								if (!searchUsername) return;
-								handleSearch();
-								navigate('/search');
-							}
-						}}
-					/>
+					<div style={{ padding: '10px' }}>
+						<p style={{ marginTop: '20px', fontSize: '14px' }}>
+							<i class='fa-solid fa-magnifying-glass nav-icon' />
+							Search ToDos
+						</p>
+						<input
+							className='search-input'
+							placeholder='Enter a username'
+							value={searchUsername}
+							onChange={(e) => setSearchUsername(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									if (!searchUsername) return;
+									handleSearch();
+									navigate('/search');
+								}
+							}}
+						/>
+					</div>
 				)}
 			</div>
 			{isLoaded && (
-				<div className='login-signup-links'>
+				<div className='nav-section'>
 					{!user && <NavLink to='/login'>Login</NavLink>}
 					{!user && <NavLink to='/signup'>Sign Up</NavLink>}
 					{user && (
 						<NavLink to='#' onClick={handleLogout}>
-							Logout
+							<p>
+								<i class='fa-solid fa-arrow-right-from-bracket nav-icon' />
+								Logout
+							</p>
 						</NavLink>
 					)}
 				</div>

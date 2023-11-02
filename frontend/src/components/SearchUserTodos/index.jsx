@@ -23,12 +23,20 @@ export const SearchUserTodos = ({ searchError, isSearchLoading }) => {
 
 	return (
 		<div className='todos-container'>
-			<div className='todo-list'>
-				{foundUsername && <h1 className='todo-list-header'>{foundUsername}'s ToDos</h1>}
+			{foundUsername && <h1 className='todo-list-header'>{foundUsername}'s ToDos</h1>}
+			<div className='todo-list' style={{ maxHeight: 'calc(75vh - 100px)' }}>
 				{searchError.username ? (
 					<Error text={searchError.username} />
 				) : (
-					todos.map((todo) => <Todo key={todo._id} todo={todo} isGuestTodo={true} />)
+					todos.map((todo, i) => (
+						<Todo
+							key={todo._id}
+							todo={todo}
+							isGuestTodo={true}
+							index={i}
+							listLength={todos.length - 1}
+						/>
+					))
 				)}
 			</div>
 		</div>
