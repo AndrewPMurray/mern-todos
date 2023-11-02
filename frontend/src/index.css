@@ -47,6 +47,8 @@ table {
 }
 /* end reset */
 
+/* global styling changes */
+
 * {
 	font-family: 'montserrat'
 }
@@ -105,6 +107,7 @@ input[type="checkbox"]:checked {
 	background-color: rgba(15, 134, 83, 0.7);
 }
 
+/* Classes shared between multiple components */
 .app-container {
   display: flex;
   align-items: center;
@@ -174,22 +177,18 @@ input[type="checkbox"]:checked {
 	position: relative;
 }
 
-.nav-icon {
-	margin-right: 5px;
-}
-
 .fade {
     position: sticky;
 	bottom: -5px;
     
-    width: 100vw;
-    height: calc(6vh - 7px);
+    width: 100%;
+    height: calc(5vh - 5px);
     border: none;
     
     background-image: linear-gradient(to bottom, 
         rgba(255, 255, 255, 0), 
         rgba(255, 255, 255, 1)
-    80%);
+    60%);
 }
 
 /* animations */

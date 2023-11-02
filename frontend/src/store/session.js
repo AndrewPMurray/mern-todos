@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { csrfFetch } from './csrf';
 
+export const restoreUser = createAsyncThunk('session/restoreUser', async () => {
+	const response = await csrfFetch('/api/session');
+	const data = await response.json();
+	return data.user;
+});
+
 export const login = createAsyncThunk('session/setUser', async (user, { rejectWithValue }) => {
 	const { credential, password } = user;
 	try {
@@ -17,12 +23,6 @@ export const login = createAsyncThunk('session/setUser', async (user, { rejectWi
 		const errors = await e.json();
 		return rejectWithValue(errors);
 	}
-});
-
-export const restoreUser = createAsyncThunk('session/restoreUser', async () => {
-	const response = await csrfFetch('/api/session');
-	const data = await response.json();
-	return data.user;
 });
 
 export const signup = createAsyncThunk('session/signUpUser', async (user, { rejectWithValue }) => {
@@ -72,7 +72,7 @@ const sessionSlice = createSlice({
 				state.user = action.payload || null;
 			})
 			.addCase(logout.fulfilled, (state, _action) => {
-				state.user = null;
+				return initialState;
 			});
 	},
 });

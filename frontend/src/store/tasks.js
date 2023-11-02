@@ -128,8 +128,7 @@ const sessionSlice = createSlice({
 				state.myTasks = myTasks;
 			})
 			.addCase(clearState.fulfilled, () => {
-				const newState = { searchUsername: null, myTasks: [], searchTasks: [] };
-				return newState;
+				return initialState;
 			});
 	},
 });
