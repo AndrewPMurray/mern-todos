@@ -85,6 +85,10 @@ input[type="checkbox"] {
 	place-content: center;
 }
 
+input {
+	outline: none;
+}
+
 input[type="checkbox"]::before {
 	width: 0.65em;
 	height: 0.65em;

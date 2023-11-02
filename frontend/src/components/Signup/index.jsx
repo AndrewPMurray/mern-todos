@@ -115,10 +115,11 @@ export const Signup = () => {
 					width: '80%',
 					minWidth: '200px',
 					lineHeight: '1.2',
+					textAlign: 'center',
 				}}
 			>
 				Note: Passwords must be at least 8 characters long and contain one uppercase letter,
-				one number, and one special character
+				one lowercase letter, one number, and one special character
 			</p>
 		</div>
 	);
