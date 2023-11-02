@@ -27,24 +27,3 @@
 .signup-sub-container .input-container .input input {
 	width: 225px;
 }
-
-.login-header {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 80px;
-	justify-content: space-between;
-	margin-bottom: 40px;
-}
-
-.login-header h2 {
-	font-size: 30px;
-}
-
-.login-header h3 a {
-	color: rgb(15, 134, 83);
-}
-
-.login-header h3 a:hover {
-	color: rgb(23, 172, 115);
-}
