@@ -5,7 +5,7 @@
 To launch the application:
 
 -   Clone the git:
-    -   https://github.com/AndrewPMurray/AdventureNote.git
+    -   https://github.com/AndrewPMurray/mern-todos.git
 -   Inside the main git folder (where the frontend and backend folders are located) run npm install to install all dependencies.
 -   In the backend folder, use the .env.example to set up your .env file. (Make sure to generate a secure JWT token and use a secure password for your database)
 -   For the `PORT` .env variable, it is recommended to use `5000`
