@@ -35,7 +35,7 @@ export const Login = () => {
 	return (
 		<div className='component-sub-container'>
 			<div className='user-login-container'>
-				<div className='login-header'>
+				<div className='login-signup-header'>
 					<h2>Welcome to your ToDos</h2>
 					<h3>
 						Please login below or <Link to='/signup'>signup</Link>

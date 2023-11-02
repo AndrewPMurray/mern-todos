@@ -129,6 +129,27 @@ input[type="checkbox"]:checked {
 	width: 100%;
 }
 
+.login-signup-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 80px;
+	justify-content: space-between;
+	margin-bottom: 40px;
+}
+
+.login-signup-header h2 {
+	font-size: 30px;
+}
+
+.login-signup-header h3 a {
+	color: rgb(15, 134, 83);
+}
+
+.login-signup-header h3 a:hover {
+	color: rgb(23, 172, 115);
+}
+
 .input-container {
 	display: flex;
 	flex-direction: column;

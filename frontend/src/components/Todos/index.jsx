@@ -76,21 +76,23 @@ export const Todos = ({ user }) => {
 		<div className='todos-container'>
 			<h1 className='todo-list-header'>My ToDos</h1>
 			<div className='todo-list' style={{ maxHeight: 'calc(58vh - 130px)' }}>
-				{todos.map((todo, i) => (
-					<Todo
-						key={todo._id}
-						todo={todo}
-						editTitle={editTitle}
-						setEditTitle={setEditTitle}
-						todoInEditing={todoInEditing}
-						setTodoInEditing={setTodoInEditing}
-						handleComplete={handleComplete}
-						handleUpdate={handleUpdate}
-						handleDelete={handleDelete}
-						index={i}
-						listLength={todos.length - 1}
-					/>
-				))}
+				{!!todos.length &&
+					todos.map((todo, i) => (
+						<Todo
+							key={todo._id}
+							todo={todo}
+							editTitle={editTitle}
+							setEditTitle={setEditTitle}
+							todoInEditing={todoInEditing}
+							setTodoInEditing={setTodoInEditing}
+							handleComplete={handleComplete}
+							handleUpdate={handleUpdate}
+							handleDelete={handleDelete}
+							index={i}
+							listLength={todos.length - 1}
+						/>
+					))}
+				{!todos.length && <p>No ToDos available. Create one using the field below.</p>}
 				<div className='fade' />
 			</div>
 			<div className='todo-create-container'>

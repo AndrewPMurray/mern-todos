@@ -37,6 +37,10 @@ export const Signup = () => {
 	return (
 		<div className='component-sub-container'>
 			<div className='signup-container'>
+				<div className='login-signup-header'>
+					<h2>Signup</h2>
+					<h3>Please fill out the fields below to create an account.</h3>
+				</div>
 				<form onSubmit={handleSubmit}>
 					<div
 						style={{

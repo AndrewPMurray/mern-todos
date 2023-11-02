@@ -22,14 +22,24 @@ export const Nav = ({ isLoaded, searchUsername, setSearchUsername, handleSearch 
 		<ul className='nav-container'>
 			<div className='nav-section'>
 				<NavLink to='/'>
-					<h1>
+					<p>
 						<i className='fa-solid fa-house nav-icon' />
 						Home
-					</h1>
+					</p>
 				</NavLink>
 				{user && (
 					<div style={{ padding: '10px' }}>
-						<p style={{ marginTop: '20px', fontSize: '14px' }}>
+						<p className='nav-text'>Welcome,</p>
+						<p className='nav-text'>
+							{user.username.length > 15
+								? `${user.username.slice(0, 15)}...`
+								: user.username}
+						</p>
+					</div>
+				)}
+				{user && (
+					<div style={{ padding: '10px' }}>
+						<p className='nav-text'>
 							<i className='fa-solid fa-magnifying-glass nav-icon' />
 							Search ToDos
 						</p>
@@ -51,8 +61,22 @@ export const Nav = ({ isLoaded, searchUsername, setSearchUsername, handleSearch 
 			</div>
 			{isLoaded && (
 				<div className='nav-section'>
-					{!user && <NavLink to='/login'>Login</NavLink>}
-					{!user && <NavLink to='/signup'>Sign Up</NavLink>}
+					{!user && (
+						<NavLink to='/signup'>
+							<p>
+								<i className='fa-solid fa-user-plus nav-icon' />
+								Sign Up
+							</p>
+						</NavLink>
+					)}
+					{!user && (
+						<NavLink to='/login'>
+							<p>
+								<i className='fa-solid fa-arrow-right-from-bracket nav-icon' />
+								Login
+							</p>
+						</NavLink>
+					)}
 					{user && (
 						<NavLink to='#' onClick={handleLogout}>
 							<p>

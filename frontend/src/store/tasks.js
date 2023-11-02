@@ -7,7 +7,7 @@ export const getTasks = createAsyncThunk(
 		try {
 			const response = await csrfFetch(`/api/tasks/${username}`);
 			const data = await response.json();
-			return { tasks: data.tasks, username: username };
+			return { tasks: data.tasks, username };
 		} catch (e) {
 			const errors = await e.json();
 			return rejectWithValue(errors);
@@ -21,7 +21,7 @@ export const searchTasks = createAsyncThunk(
 		try {
 			const response = await csrfFetch(`/api/tasks/${username}`);
 			const data = await response.json();
-			return { tasks: data.tasks, username: username };
+			return { tasks: data.tasks, username };
 		} catch (e) {
 			const errors = await e.json();
 			return rejectWithValue(errors);

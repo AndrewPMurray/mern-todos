@@ -27,7 +27,7 @@ export const SearchUserTodos = ({ searchError, isSearchLoading }) => {
 			<div className='todo-list' style={{ maxHeight: 'calc(75vh - 100px)' }}>
 				{searchError.username ? (
 					<Error text={searchError.username} />
-				) : (
+				) : !!todos.length ? (
 					todos.map((todo, i) => (
 						<Todo
 							key={todo._id}
@@ -37,6 +37,8 @@ export const SearchUserTodos = ({ searchError, isSearchLoading }) => {
 							listLength={todos.length - 1}
 						/>
 					))
+				) : (
+					<p>{foundUsername} has no ToDos</p>
 				)}
 				<div className='fade' />
 			</div>

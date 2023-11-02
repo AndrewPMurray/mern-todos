@@ -83,7 +83,7 @@ router.post(
 		const { email, password, username } = req.body;
 		const user = await User.signup({
 			email,
-			username: username,
+			username,
 			password,
 		});
 
