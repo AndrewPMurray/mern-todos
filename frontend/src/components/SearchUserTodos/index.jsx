@@ -38,6 +38,7 @@ export const SearchUserTodos = ({ searchError, isSearchLoading }) => {
 						/>
 					))
 				)}
+				<div className='fade' />
 			</div>
 		</div>
 	);

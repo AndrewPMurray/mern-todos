@@ -33,44 +33,46 @@ export const Login = () => {
 	};
 
 	return (
-		<div className='user-login-container'>
-			<div className='login-header'>
-				<h2>Welcome to your ToDos</h2>
-				<h3>
-					Please login below or <Link to='/signup'>signup</Link>
-				</h3>
+		<div className='component-sub-container'>
+			<div className='user-login-container'>
+				<div className='login-header'>
+					<h2>Welcome to your ToDos</h2>
+					<h3>
+						Please login below or <Link to='/signup'>signup</Link>
+					</h3>
+				</div>
+				<form onSubmit={handleSubmit}>
+					<div className='input-container'>
+						<div className='input'>
+							<label>Email or Username:</label>
+							<input
+								name='credential'
+								value={credential}
+								placeholder='Enter email or username'
+								onChange={(e) => setCredential(e.target.value)}
+							/>
+							{errors.credential && <Error text={errors.credential} />}
+						</div>
+					</div>
+					<div className='input-container'>
+						<div className='input'>
+							<label>Password:</label>
+							<input
+								type='password'
+								name='password'
+								value={password}
+								placeholder='Enter password'
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+							{errors.password && <Error text={errors.password} />}
+						</div>
+					</div>
+					<div className='input'>
+						<button type='submit'>Login</button>
+					</div>
+				</form>
+				{errors.invalid && <Error text={errors.invalid} />}
 			</div>
-			<form onSubmit={handleSubmit}>
-				<div className='input-container'>
-					<div className='input'>
-						<label>Email or Username:</label>
-						<input
-							name='credential'
-							value={credential}
-							placeholder='Enter email or username'
-							onChange={(e) => setCredential(e.target.value)}
-						/>
-						{errors.credential && <Error text={errors.credential} />}
-					</div>
-				</div>
-				<div className='input-container'>
-					<div className='input'>
-						<label>Password:</label>
-						<input
-							type='password'
-							name='password'
-							value={password}
-							placeholder='Enter password'
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-						{errors.password && <Error text={errors.password} />}
-					</div>
-				</div>
-				<div className='input'>
-					<button type='submit'>Login</button>
-				</div>
-			</form>
-			{errors.invalid && <Error text={errors.invalid} />}
 		</div>
 	);
 };

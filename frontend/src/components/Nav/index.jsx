@@ -30,7 +30,7 @@ export const Nav = ({ isLoaded, searchUsername, setSearchUsername, handleSearch 
 				{user && (
 					<div style={{ padding: '10px' }}>
 						<p style={{ marginTop: '20px', fontSize: '14px' }}>
-							<i class='fa-solid fa-magnifying-glass nav-icon' />
+							<i className='fa-solid fa-magnifying-glass nav-icon' />
 							Search ToDos
 						</p>
 						<input
@@ -56,7 +56,7 @@ export const Nav = ({ isLoaded, searchUsername, setSearchUsername, handleSearch 
 					{user && (
 						<NavLink to='#' onClick={handleLogout}>
 							<p>
-								<i class='fa-solid fa-arrow-right-from-bracket nav-icon' />
+								<i className='fa-solid fa-arrow-right-from-bracket nav-icon' />
 								Logout
 							</p>
 						</NavLink>
